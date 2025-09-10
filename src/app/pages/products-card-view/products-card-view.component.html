@@ -1,0 +1,128 @@
+<mat-card class="cardWithShadow m-3">
+
+    <mat-card-content>
+      <mat-card-title>Product List </mat-card-title>
+      <div class="row">
+        <div class="col-lg-4">
+          <!-- input -->
+          <!-- <mat-label class="f-w-400 m-b-8 d-block">Your Name</mat-label> -->
+          <mat-form-field appearance="outline" class="w-25 m-r-10" color="primary">
+            <input matInput placeholder="product " />
+          </mat-form-field>
+         
+            <!-- <mat-label class="f-w-600 m-b-8 d-block">categories</mat-label> -->
+            <mat-form-field appearance="outline" class="w-50">
+              <mat-select [(value)]="selectedcategories">
+                @for(option of categories; track option.value) {
+                <mat-option [value]="option.value">{{
+                  option.viewValue
+                }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-4"></div>
+          <div class="col-lg-4"> 
+                             
+
+          <div class="flex-row fit">
+            <button mat-menu-item (click)="OpenAddProductDilog()">
+              <!-- <i class="fa-solid fa-table-list "></i> -->
+              <i class="fa-solid fa-square-plus icon-view"></i>
+            </button>
+            <button mat-menu-item (click)="navigate()">
+              <i class="fa-solid fa-table-list  icon-view"></i>
+           <!-- <span>view</span> -->
+         </button>
+       </div>
+
+        </div>
+      </div>
+      <div>
+
+
+
+<div class="row">
+
+
+
+
+@for(prod of prods; track prod.idProduct) {
+  
+    <div class="col-lg-3 ">  
+        <div class="product-card  " >
+            <mat-card class="cardWithShadow  " >
+              <a routerLink="/widgets/cards">
+                <div class="image-container rounded  "
+                [ngStyle]="{ 'background-image': 'url(' + prod.principalPhoto + ')',      'background-size': 'cover',
+            'background-position': 'center',
+            'background-repeat': 'no-repeat' }"
+                >
+                  <!-- @if(prod.principalPhoto != null) {
+                    <img [src]="prod.principalPhoto" alt="Product Image" class="fixed-size-image rounded m-1 w-100 product-image" />
+
+                  } -->
+                  @if(prod.principalPhoto == null) {
+                    <img src="https://i.pinimg.com/474x/67/52/c7/6752c7d13005b6e5800f0dd3b1290b45.jpg" alt="Product Image" class="fixed-size-image rounded m-1 w-100 product-image" />
+
+                  }
+                </div>
+              </a>
+              <mat-card-content class="p-b-2 p-t-20 position-relative">
+<div class=" row w-100">
+    <div class="col-12 col-sm-6">                 <mat-card-title class="mat-headline-2 f-s-16 m-b-4">{{ prod.name }}</mat-card-title>
+    </div>
+    <div class="col-12 col-sm-6">
+        </div>
+</div>
+
+                <hr>
+
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="OpenAddProductDilog()">
+                    <mat-icon>add</mat-icon>
+                    <span>Add</span>
+                  </button>
+                  <button mat-menu-item (click)="OpenEditProductDilog(prod)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteProduct(prod.idProduct)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+                <div class="d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <h6 class="mat-body-2 f-w-600 f-s-12">{{ prod.price }} MRU</h6>
+                    <!-- <span class="f-s-14 m-l-4 text-decoration-line-through">${{ prod.rprice }}</span> -->
+                  </div>
+                  <div class="m-l-auto d-flex f-w-600 f-s-10 m-l-4 gap-4 justify-content-center">
+                    Quantity {{ prod.price }}
+                    
+                      <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="menu"
+                    aria-label="Example icon-button with a menu"
+                    class="p-0 m-0"
+                  >
+                    <mat-icon>more_vert</mat-icon>
+                    
+                  </button>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>   </div>
+    
+
+
+
+}
+
+</div>
+
+    </div>
+    </mat-card-content>
+  </mat-card>
+  

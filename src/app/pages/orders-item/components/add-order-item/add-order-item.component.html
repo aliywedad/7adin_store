@@ -1,0 +1,68 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+      <mat-card-title class="m-b-0">Adding a new Order item</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+      <form>
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">quantity</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput placeholder="order quantity " [(ngModel)]="orderitem.quantity" name="quantity"   />
+            </mat-form-field>
+          </div>
+
+
+
+        
+
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">price</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput placeholder="price " [(ngModel)]="orderitem.price" name="price"   />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">order</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select [(value)]="orderitem.orderID">
+                <mat-option [value]="" aria-disabled="false"> select order </mat-option>
+                @for(order of orders; track order.idOrder) {
+                <mat-option [value]="order.idOrder">{{
+                    order.description
+                }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">client</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select [(value)]="orderitem.id_product">
+                <mat-option [value]="" aria-disabled="false"> select client </mat-option>
+                @for(product of products; track product.idProduct) {
+                <mat-option [value]="product.idProduct">{{
+                    product.name  
+                }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+       
+          
+        </div>
+  
+        <div class="m-t-12">
+          <button mat-flat-button color="primary" (click)="onSubmit()" class="m-r-8">Submit</button>
+          <button mat-stroked-button color="warn" (click)="onClose()">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  

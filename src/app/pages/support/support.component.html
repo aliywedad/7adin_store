@@ -1,0 +1,56 @@
+
+
+ 
+
+
+<mat-card class="cardWithShadow  p-3 ">
+
+<table class="table table-hover rounded">
+     <thead>
+      <tr>
+        
+        <!-- <th scope="col">Stock Quantity</th> -->
+      
+      </tr>
+    </thead>
+
+
+    <tbody>
+      <tr *ngFor="let element of dataSource " class="align-middle">
+        
+        <td (click)="goToChat(element.id)">  
+            
+            <div class="d-flex align-items-center p-3 ">
+            <img src="assets/images/profile/user-3.jpg" alt="users" width="40" class="rounded-circle" />
+            <div class="m-l-16 ">
+                <h6 class="mat-subtitle-1 f-s-14 f-w-600 lh-sm">
+                    {{ element.name }}
+                </h6>
+                <span class="mat-body-1 f-s-12">
+                    {{ element.email }}
+                </span>
+            </div>
+            
+        </div>
+    </td>
+    <td>
+        <span class="text-dark   rounded f-w-500 p-6 p-y-4 f-s-12">
+            02-04-2022
+        </span>
+    </td>
+       
+    <td>
+        <img src="https://i.pinimg.com/474x/f0/78/14/f0781482305fe0c5e9f3f57f0c109dfc.jpg" alt="users" width="40" class="rounded-circle" />
+    </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+
+</mat-card>
+
+
+
+ 

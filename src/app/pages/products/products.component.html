@@ -1,0 +1,108 @@
+<mat-card class="cardWithShadow">
+
+    <mat-card-content>
+      <mat-card-title>Product List </mat-card-title>
+  
+      <div class="table-responsive">
+
+        <div class="row">
+            <div class="col-lg-4">
+              <!-- input -->
+              <!-- <mat-label class="f-w-400 m-b-8 d-block">Your Name</mat-label> -->
+              <mat-form-field appearance="outline" class="w-25 m-r-10" color="primary">
+                <input matInput placeholder="product " />
+              </mat-form-field>
+             
+                <!-- <mat-label class="f-w-600 m-b-8 d-block">categories</mat-label> -->
+                <mat-form-field appearance="outline" class="w-50">
+                  <mat-select [(value)]="selectedcategories">
+                    @for(option of categories; track option.value) {
+                    <mat-option [value]="option.value">{{
+                      option.viewValue
+                    }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4"></div>
+              <div class="col-lg-4"> 
+                             
+
+                <div class="flex-row fit">
+                  <button mat-menu-item (click)="OpenAddProductDilog()">
+                    <!-- <i class="fa-solid fa-table-list "></i> -->
+                    <i class="fa-solid fa-square-plus icon-view"></i>
+                  </button>
+                  <button mat-menu-item (click)="navigate()">
+                    <!-- <i class="fa-solid fa-chart-pie  icon-view"></i> -->
+                    <i class="fa-solid fa-image  icon-view"></i>
+                 <!-- <span>view</span> -->
+               </button>
+             </div>
+      
+              </div>
+
+        </div>
+        <table class="table table-hover">
+ 
+          <!-- Table Head -->
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Description</th>
+              <th scope="col">Price</th>
+              <th scope="col">Category</th>
+              <th scope="col">Stock Quantity</th>
+              <th scope="col">Created At</th>
+              <th scope="col">Updated At</th>
+            </tr>
+          </thead>
+  
+          <!-- Table Body -->
+          <tbody>
+            <tr *ngFor="let product of products; trackBy: trackById" class="align-middle">
+              <!-- ID Column -->
+              <th scope="row" class="text-dark text-center">{{ product.idProduct }}</th>
+            
+              <!-- Other Columns -->
+              <td>{{ product.name }}</td>
+              <td>{{ product.description }}</td>
+              <td>{{ product.price }} MRU</td>
+              <td>{{ product.nameCategory }}</td>
+              <td>{{ product.stockQuantity }}</td>
+              <td>{{ product.created_at | date: 'shortDate' }}</td>
+              <td>{{ product.updated_at | date: 'shortDate' }}</td>
+  
+              <!-- Actions Column with Menu -->
+              <td class="text-center">
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  aria-label="Example icon-button with a menu"
+                  class="p-0 m-0"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="OpenAddProductDilog()">
+                    <mat-icon>add</mat-icon>
+                    <span>Add</span>
+                  </button>
+                  <button mat-menu-item (click)="OpenEditProductDilog(product)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteProduct(product.idProduct)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

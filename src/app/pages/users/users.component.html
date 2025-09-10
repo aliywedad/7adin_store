@@ -1,0 +1,84 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+      <mat-card-title>Table</mat-card-title>
+      <div class="row">
+        <div class="col-lg-6">
+          <!-- input -->
+          <!-- <mat-label class="f-w-400 m-b-8 d-block">Your Name</mat-label> -->
+          <mat-form-field appearance="outline" class="w-25 m-r-10" color="primary">
+            <input matInput placeholder="product " />
+          </mat-form-field>
+         
+            <!-- <mat-label class="f-w-600 m-b-8 d-block">categories</mat-label> -->
+             
+          </div>
+          <div class="col-lg-3">                  <button mat-menu-item (click)="showAddUserDialog()">
+            <i class="fa-solid fa-square-plus icon-view"></i>
+          </button></div>
+
+    </div>
+      <div class="table-responsive">
+        <table class="table table-hover  ">
+          
+
+
+          <!-- Table Head -->
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Status</th>
+              <!-- <th scope="col">Created At</th>
+              <th scope="col">Updated At</th> -->
+              <th scope="col" class="text-center">Budget</th>
+            </tr>
+          </thead>
+  
+          <!-- Table Body -->
+          <tbody>
+            <tr *ngFor="let user of users; trackBy: trackByName" class="align-middle">
+              <!-- ID Column -->
+              <th scope="row" class=" text-darck text-center">{{ user.id }}</th>
+  
+              <!-- Other Columns -->
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.role }}</td>
+              <td>{{ user.status }}</td>
+              <!-- <td>{{ user.created_at }}</td>
+              <td>{{ user.updated_at }}</td> -->
+  
+              <!-- Actions Column with Menu -->
+              <td class="text-center">
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  aria-label="Example icon-button with a menu"
+                  class="p-0 m-0"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>add</mat-icon>
+                    <span>Add</span>
+                  </button>
+                  <button mat-menu-item (click)="showEditUserDialog(user)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteUser(user.id)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

@@ -1,0 +1,81 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+      <mat-card-title>Payment List</mat-card-title>
+  
+      <div class="table-responsive">
+  
+        <div class="row">
+          <div class="col-lg-6">
+            <mat-form-field appearance="outline" class="w-25 m-r-10" color="primary">
+                <input matInput placeholder="Payment Method" [(ngModel)]="productName" (ngModelChange)="getProductName()" />
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="w-50">
+              <mat-select [(value)]="selectedStatus">
+                <mat-option *ngFor="let option of statuses" [value]="option.value">
+                  {{ option.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-3">
+            <button mat-menu-item (click)="OpenAddDilog()" >
+              <i class="fa-solid fa-square-plus icon-view"></i>
+            </button></div>
+        </div>
+  
+        <table class="table table-hover">
+  
+          <!-- Table Head -->
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Payment Method</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Status</th>
+              <th scope="col">Transaction Date</th>
+              <th scope="col" class="text-center">Budget</th>
+
+            </tr>
+          </thead>
+  
+          <!-- Table Body -->
+          <tbody>
+       
+            <tr *ngFor="let payment of payments; trackBy: trackById" class="align-middle">
+              <th scope="row" class="text-dark text-center">{{ payment.idPayment }}</th>
+              <td>{{ payment.payment }}</td>
+              <td>${{ payment.amount.toFixed(2) }}</td>
+              <td>{{ payment.status }}</td>
+              <td>{{ payment.transactionDate | date: 'shortDate' }}</td>
+              <td class="text-center">
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="menu"
+                  aria-label="Example icon-button with a menu"
+                  class="p-0 m-0"
+                >
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>add</mat-icon>
+                    <span>Add</span>
+                  </button>
+                  <button mat-menu-item (click)="OpenEditDilog(payment)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                  </button>
+                  <button mat-menu-item (click)="deletePayment(payment.idPayment)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  

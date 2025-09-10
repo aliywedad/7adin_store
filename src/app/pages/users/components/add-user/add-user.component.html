@@ -1,0 +1,68 @@
+<mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+      <mat-card-title class="m-b-0">Adding a new product</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+      <form>
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">Name</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput placeholder="your name " [(ngModel)]="user.name" name="name"   />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+                        <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">Email</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput type="email" [(ngModel)]="user.email" name="Email"   placeholder="Email" />
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <!-- input -->
+          <mat-label class="f-w-600 m-b-8 d-block">Password</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input matInput type="email" [(ngModel)]="user.password" name="Password"   placeholder="Password" />
+          </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">Role</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select [(value)]="user.role">
+                <mat-option [value]=" " aria-disabled="true"> select role </mat-option>
+                @for(role of roles; track role.value) {
+                <mat-option [value]="role.value">{{
+                  role.viewValue
+                }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+             
+            <mat-label class="f-w-600 m-b-8 d-block">Status</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select [(value)]="user.status">
+                <mat-option [value]=" " aria-disabled="true"> select status </mat-option>
+                @for(status of statuses; track status.value) {
+                <mat-option [value]="status.value">{{
+                    status.viewValue
+                }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          
+        </div>
+  
+        <div class="m-t-12">
+          <button mat-flat-button color="primary" (click)="onSubmit()" class="m-r-8">Submit</button>
+          <button mat-stroked-button color="warn">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  

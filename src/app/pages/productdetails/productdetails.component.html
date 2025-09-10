@@ -1,0 +1,74 @@
+ 
+
+<div class="container  ">
+
+    <div class="product-card w-100">
+        <mat-card class="cardWithShadow overflow-hidden w-100">
+                <div class="image-details-container flex w-100">
+                    <!-- Image on the left -->
+                    <img [src]="product.imgSrc" alt="Product Image" class="fixed-size-image" />
+                    
+                    <!-- Description on the right -->
+                    <div class="description">
+                        descrition description descrition description descrition description descrition description
+                        descrition description descrition description descrition description descrition description
+                        descrition description descrition description descrition description descrition description
+                        descrition description descrition description descrition description descrition description
+                    </div>
+                </div>
+            
+            <mat-card-content class="p-b-24 p-t-12 position-relative">
+                <button mat-mini-fab color="primary" class="icon-30 cart-btn" matTooltip="Add to Cart">
+                    <i-tabler name="basket" class="icon-16"></i-tabler>
+                </button>
+                <mat-card-title class="mat-headline-2 f-s-16 m-b-4">{{ product.name }}</mat-card-title>
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <h6 class="mat-body-2 f-w-600">${{ product.price }}</h6>
+                        <span class="f-s-14 m-l-4 text-decoration-line-through">${{ product.rprice }}</span>
+                    </div>
+                    <div class="m-l-auto d-flex gap-4">
+                        <span><i-tabler name="star" class="fill-warning icon-18"></i-tabler></span>
+                        <span><i-tabler name="star" class="fill-warning icon-18"></i-tabler></span>
+                        <span><i-tabler name="star" class="fill-warning icon-18"></i-tabler></span>
+                        <span><i-tabler name="star" class="fill-warning icon-18"></i-tabler></span>
+                        <span><i-tabler name="star" class="fill-warning icon-18"></i-tabler></span>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+ 
+<mat-card class="cardWithShadow overflow-hidden">
+    <mat-card-content class="p-32 p-b-18">
+        <mat-card-title class="m-b-0">Sales Overview</mat-card-title>
+        <div class="d-flex flex-column m-t-30">
+            
+<div class="slider ">
+    <figure>
+        <div class="slide">
+            <h1>Gambar Satu</h1>
+            <img [src]="product.imgSrc1" class="fixed-size-image" alt="">
+        </div>
+        <div class="slide">
+            <h1>Gambar Dua</h1>
+            <img [src]="product.imgSrc2" class="fixed-size-image" alt="">
+        </div>
+        <div class="slide">
+            <h1>Gambar Tiga</h1>
+            <img [src]="product.imgSrc3" class="fixed-size-image" alt="">
+        </div>
+        <div class="slide">
+            <h1>Gambar Empat</h1>
+            <img [src]="product.imgSrc1" class="fixed-size-image" alt="">
+        </div>
+    </figure>
+</div>
+        </div>
+    </mat-card-content>
+
+</mat-card>
+
+ 

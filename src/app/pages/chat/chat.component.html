@@ -1,0 +1,22 @@
+<mat-card class="cardWithShadow  ">
+    <mat-card-content class="chat-content">
+      <div class="chat-messages">
+        <div *ngFor="let message of messages" [ngClass]="{'message admin-message': message.isFromAdmin, 'message user-message': !message.isFromAdmin}">
+          @if(message.isFromAdmin==false){
+            <img src="assets/images/profile/user-3.jpg" alt="users" width="40" class="rounded-circle m-r-3" />  
+          } <span class="message-text">   {{ message.message }}</span>
+          <span     [ngClass]="{'message-time': message.isFromAdmin, 'message-time-user': !message.isFromAdmin}">{{  message.date }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  
+    <mat-card-actions class="chat-input-container p-4">
+      <mat-form-field class="chat-input" appearance="outline">
+        <input matInput placeholder="Type a message..." class="p-0" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" />
+      </mat-form-field>
+      <button mat-icon-button color="primary" (click)="sendMessage()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  

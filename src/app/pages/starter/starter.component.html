@@ -1,0 +1,36 @@
+<!-- <div class="row">
+  <div class="col-12">
+      <app-sales-overview></app-sales-overview>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-12">
+      <app-bar-chart [data]="data" [labels]="labels"  [titel]="'pie chart'"></app-bar-chart>
+  </div>
+ 
+
+</div>
+
+
+<div class="row">
+  <div class="col-8">
+      <app-bar-chart [data]="data" [labels]="labels"  [titel]="'pie chart'"></app-bar-chart>
+  </div>
+  <div class="col-lg-4">
+    <app-pie [data]="data" [labels]="labels"  [titel]="'pie chart'"></app-pie>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-lg-6">
+    <app-pie [data]="data" [labels]="labels"  [titel]="'pie chart'"></app-pie>
+  </div>
+  <div class="col-lg-6">
+    <app-pie [data]="data2" [labels]="labels2" [titel]="'pie chart'"></app-pie>
+  </div>
+</div>
+
+<!-- <app-blog></app-blog> -->
