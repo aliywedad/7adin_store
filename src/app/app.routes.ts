@@ -21,11 +21,12 @@ import { ProductsCardViewComponent } from './pages/products-card-view/products-c
 import { StarterComponent } from './pages/starter/starter.component';
 import { SupportComponent } from './pages/support/support.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import { PageLoaderComponent } from './pages/page-loader/page-loader.component';
 export const routes: Routes = [
 
   {
     path: '',
-    component: AppSideLoginComponent,
+    component: PageLoaderComponent,
      
   },
   {

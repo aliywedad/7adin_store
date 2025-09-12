@@ -1,36 +1,64 @@
-<!-- <div class="row">
-  <div class="col-12">
-      <app-sales-overview></app-sales-overview>
-  </div>
-</div> -->
+ <html dir="rtl" lang="ar">
+  <mat-card class="cardWithShadow p-4">
+    <mat-card-title class="text-xl font-bold mb-4">لوحة التحكم</mat-card-title>
 
-<div class="row">
-  <div class="col-12">
-      <app-bar-chart [data]="data" [labels]="labels"  [titel]="'pie chart'"></app-bar-chart>
-  </div>
- 
+    <div class="row">
+      <!-- Daily Sales -->
+      <div class="col-lg-4 col-md-6 mb-3">
+        <mat-card class="stat-card bg-light-blue">
+          <mat-card-content class="text-center">
+            <h3>المبيعات اليومية</h3>
+            <p class="stat-number">{{ dailySales }} طلب</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
 
-</div>
+      <!-- Daily Amount -->
+      <div class="col-lg-4 col-md-6 mb-3">
+        <mat-card class="stat-card bg-light-green">
+          <mat-card-content class="text-center">
+            <h3>إجمالي اليوم</h3>
+            <p class="stat-number">{{ dailyAmount   }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
 
+      <!-- Pending Orders -->
+      <div class="col-lg-4 col-md-6 mb-3">
+        <mat-card class="stat-card bg-light-orange">
+          <mat-card-content class="text-center">
+            <h3>الطلبات المعلقة</h3>
+            <p class="stat-number">{{ pendingOrders }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
 
-<div class="row">
-  <div class="col-8">
-      <app-bar-chart [data]="data" [labels]="labels"  [titel]="'pie chart'"></app-bar-chart>
-  </div>
-  <div class="col-lg-4">
-    <app-pie [data]="data" [labels]="labels"  [titel]="'pie chart'"></app-pie>
-  </div>
-
-</div>
-
-<div class="row">
-
-  <div class="col-lg-6">
-    <app-pie [data]="data" [labels]="labels"  [titel]="'pie chart'"></app-pie>
-  </div>
-  <div class="col-lg-6">
-    <app-pie [data]="data2" [labels]="labels2" [titel]="'pie chart'"></app-pie>
-  </div>
-</div>
-
-<!-- <app-blog></app-blog> -->
+    <!-- Small Table -->
+    <mat-card class="mt-4">
+      <mat-card-title class="mb-2">آخر المبيعات</mat-card-title>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>العميل</th>
+              <th>المبلغ</th>
+              <th>التاريخ</th>
+              <th>الحالة</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sale of lastSales; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ sale.customer }}</td>
+              <td>{{ sale.amount   }}</td>
+              <td>{{ sale.date   }}</td>
+              <td>{{ sale.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card>
+  </mat-card>
+</html>

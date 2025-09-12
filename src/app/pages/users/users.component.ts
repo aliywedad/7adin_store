@@ -11,21 +11,74 @@ import { usersData } from './type';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { Constants } from 'src/app/tools/Constants';
 
 
-const PRODUCT_DATA: any = [
- 
-  {
-    id: 4,
-    name: 'mohamed aliy ahmed',
-    email: 'mohamedaliy@gmail.com',
-    role: "admin",
-    status: 'confirmed',
-    created_at:'2023-04-05',
-    updated_at:'2023-04-05',
+const PRODUCT_DATA: any = 
+[
+    {
+    "id": 1,
+    "name": "محمد أحمد",
+    "email": "mohamed.ahmed@example.com",
+    "roles": ["admin", "مدير المنتجات"]
   },
- 
-];
+  {
+    "id": 2,
+    "name": "فاطمة الزهراء",
+    "email": "fatima.zahra@example.com",
+    "roles": ["مدير المبيعات", "مدير المنتجات"]
+  },
+  {
+    "id": 3,
+    "name": "علي الحسن",
+    "email": "ali.hassan@example.com",
+    "roles": ["المحاسب"]
+  },
+  {
+    "id": 4,
+    "name": "خديجة محمد",
+    "email": "khadija.mohamed@example.com",
+    "roles": ["الموارد البشرية"]
+  },
+  {
+    "id": 5,
+    "name": "يوسف إبراهيم",
+    "email": "youssef.ibrahim@example.com",
+    "roles": ["الدعم الفني", "مدير المنتجات"]
+  }
+  ,
+  {
+    "id": 11,
+    "name": "محمد أحمد",
+    "email": "mohamed.ahmed@example.com",
+    "roles": ["admin", "مدير المنتجات"]
+  },
+  {
+    "id": 21,
+    "name": "فاطمة الزهراء",
+    "email": "fatima.zahra@example.com",
+    "roles": ["مدير المبيعات", "مدير المنتجات"]
+  },
+  {
+    "id": 31,
+    "name": "علي الحسن",
+    "email": "ali.hassan@example.com",
+    "roles": ["المحاسب"]
+  },
+  {
+    "id": 41,
+    "name": "خديجة محمد",
+    "email": "khadija.mohamed@example.com",
+    "roles": ["الموارد البشرية"]
+  },
+  {
+    "id": 51,
+    "name": "يوسف إبراهيم",
+    "email": "youssef.ibrahim@example.com",
+    "roles": ["الدعم الفني", "مدير المنتجات"]
+  }
+]
+;
 
 
 
@@ -48,12 +101,13 @@ export class UsersComponent  implements OnInit{
   constructor(private myService: UsersServicesComponent,private dialog: MatDialog) {}
   users: any = [];
   ngOnInit(): void {
+    console.log("user info : ",Constants.admin)
 
-    this.myService.getUserData().subscribe((data) => {
-      console.log(data);
-      this.users = data;  
-    });
-  
+    // this.myService.getUserData().subscribe((data) => {
+    //   console.log(data);
+      
+    // });
+  this.users = PRODUCT_DATA;  
   }
 
 showAddUserDialog() {

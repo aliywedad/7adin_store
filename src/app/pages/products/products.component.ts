@@ -35,7 +35,49 @@ export class ProductsComponent implements OnInit {
   constructor(private productsService: ProductsService ,
     private router: Router,
      private dialog: MatDialog) { }
-  products :any= [];
+  products :any= [
+  {
+    "idProduct": 1,
+    "name": "حاسوب محمول",
+    "description": "حاسوب محمول  ",
+    "price": 45000,
+    "nameCategory": "إلكترونيات",
+    "stockQuantity": 10,
+    "created_at": "2025-01-05T10:30:00",
+    "updated_at": "2025-02-10T14:20:00"
+  },
+  {
+    "idProduct": 2,
+    "name": "هاتف ذكي",
+    "description": "هاتف بشاش MP",
+    "price": 28000,
+    "nameCategory": "هواتف",
+    "stockQuantity": 25,
+    "created_at": "2025-02-01T11:00:00",
+    "updated_at": "2025-02-15T09:10:00"
+  },
+  {
+    "idProduct": 3,
+    "name": "سماعات ",
+    "description": "سماعات  عالية",
+    "price": 3500,
+    "nameCategory": "إكسسوارات",
+    "stockQuantity": 50,
+    "created_at": "2025-01-20T08:45:00",
+    "updated_at": "2025-02-12T16:00:00"
+  },
+  {
+    "idProduct": 4,
+    "name": "طابعة ليزر",
+    "description": "طابعة سريعة مع دعم الشبكة اللاسلكية",
+    "price": 12000,
+    "nameCategory": "مكتبية",
+    "stockQuantity": 5,
+    "created_at": "2025-02-05T13:15:00",
+    "updated_at": "2025-02-18T11:25:00"
+  }
+]
+;
 
   fetchData() {
     this.productsService.getProductData().subscribe((data) => {this.products = data;});

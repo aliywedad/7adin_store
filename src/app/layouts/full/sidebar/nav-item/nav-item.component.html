@@ -3,18 +3,19 @@
   {{ item.navCap }}
 </div>
 } @if(!item.navCap && !item.external && !item.twoLines) {
-<a mat-list-item (click)="onItemSelected(item)" [ngClass]="{
-      'mat-toolbar mat-primary activeMenu': item.route
+<a
+  mat-list-item
+  (click)="onItemSelected(item)"
+  [ngClass]="{
+      'mat-toolbar mat-prim ary activeMenu': item.route
         ? router.isActive(item.route, true)
         : false,
-    }" class="menu-list-item">
-  
+    }"
+  class="menu-list-item"
+>
   <span class="hide-menu">
-    <i [ngClass]="item.iconName "
-     class="p-2 accent" 
-     
-     ></i>
-     {{ item.displayName }}</span>
-
+    <i [ngClass]="item.iconName" class="p-1  accent"></i>
+    <span class="nav-title"> {{ item.displayName }} </span>
+  </span>
 </a>
 }

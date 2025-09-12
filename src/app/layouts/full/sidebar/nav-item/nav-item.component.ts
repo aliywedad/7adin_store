@@ -17,7 +17,7 @@ import { TablerIconComponent, TablerIconsModule } from 'angular-tabler-icons';
   standalone: true,
   imports: [MaterialModule, CommonModule, TablerIconsModule],
   templateUrl: './nav-item.component.html',
-  styleUrls: [],
+  styleUrl: './nav-item.component.scss',
 })
 export class AppNavItemComponent implements OnChanges {
   @Output() toggleMobileLink: any = new EventEmitter<void>();

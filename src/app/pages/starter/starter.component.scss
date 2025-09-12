@@ -1,0 +1,28 @@
+.stat-card {
+  border-radius: 16px;
+  color: #333;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.bg-light-blue {
+  background: #e3f2fd;
+}
+
+.bg-light-green {
+  background: #e8f5e9;
+}
+
+.bg-light-orange {
+  background: #fff3e0;
+}
+
+.table th, .table td {
+  text-align: center;
+}
