@@ -1,16 +1,20 @@
 export class Administrateur {
     nom?: string;
     prenom?: string;
-    userName?: string;
+    name?: string;
     id?: string;
     token:string;
     rolesGroupe?: string[] = [];
     profileImgUrl?: string;
     accountStatut?: number;
-    phoneNumber?: string;
+    phone?: string;
     updated?: number;
     created?: number;
     isMaster?: boolean;
     uid?: string;
     email?: string;
+
+
+  
+
 }

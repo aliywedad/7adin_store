@@ -18,9 +18,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideClientHydration } from '@angular/platform-browser';
 
 
-// icons
-import { TablerIconsModule } from 'angular-tabler-icons';
-import * as TablerIcons from 'angular-tabler-icons/icons';
+ 
 import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
 
@@ -53,7 +51,6 @@ export const appConfig: ApplicationConfig = {
       ReactiveFormsModule,
       
       MaterialModule,
-      TablerIconsModule.pick(TablerIcons),
       FeatherModule.pick(allIcons),
       NgScrollbarModule,
     ),

@@ -1,11 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MaterialModule } from '../../material.module';
-import { AppSalesOverviewComponent } from 'src/app/components/sales-overview/sales-overview.component';
-import { AppDailyActivitiesComponent } from 'src/app/components/daily-activities/daily-activities.component';
-import { AppProductPerformanceComponent } from 'src/app/components/product-performance/product-performance.component';
-import { AppBlogComponent } from 'src/app/components/apps-blog/apps-blog.component';
-import { BarChartComponent } from 'src/app/charts/bar-chart/bar-chart.component';
-import { PieComponent } from 'src/app/charts/pie/pie.component';
+ 
 import { CommonModule } from '@angular/common';
 import { Constants } from 'src/app/tools/Constants';
 
@@ -14,13 +9,7 @@ import { Constants } from 'src/app/tools/Constants';
   standalone: true,
   imports: [
     MaterialModule,
-    CommonModule,
-    BarChartComponent,
-    PieComponent,
-    AppSalesOverviewComponent,
-    AppDailyActivitiesComponent,
-    AppProductPerformanceComponent,
-    AppBlogComponent,
+    CommonModule, 
   ],
   templateUrl: './starter.component.html',
   styleUrl: './starter.component.scss',

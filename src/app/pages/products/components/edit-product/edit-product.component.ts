@@ -1,11 +1,4 @@
-
- 
-
- 
-
-
-
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,16 +7,22 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-import { ProductsService } from 'src/app/services/products.service';
-import { CategoryService } from 'src/app/services/category.service';
-import { ProductsComponent } from '../../products.component';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ProductsServicesComponent } from 'src/app/pages/products/productsServices';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { LoadingComponent } from 'src/app/tools/loading/loading.component';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-edit-product',
   standalone: true,
   imports: [
     MatFormFieldModule,
     MatSelectModule,
+    LoadingComponent,
+    CommonModule,
+
     FormsModule,
     ReactiveFormsModule,
     MatRadioModule,
@@ -33,96 +32,110 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
     MatCheckboxModule,
   ],
   templateUrl: './edit-product.component.html',
-  styleUrl: './edit-product.component.scss'
+  styleUrl: './edit-product.component.scss',
 })
 export class EditProductComponent implements OnInit {
-constructor(private service: ProductsService,
-  private categoryService: CategoryService,
-  public dialogRef: MatDialogRef<ProductsComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any
-) { }
-categories: any[] = [];
-product: any = {
- 
-};
+  constructor(
+    private service: ProductsServicesComponent,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+  product: any = {};
+  isLoading = false;
+
   ngOnInit() {
-    this.categoryService.getCategoryData().subscribe((data: any[]) => {
-      this.categories = data;
-    })
+    this.isLoading = true;
 
-    this.product = this.data
-    this.img1  = this.product.supplementaryPhotos[0];
-    this.img2 =this.product.supplementaryPhotos[1];
+    const productId = this.route.snapshot.paramMap.get('id');
+    if (productId) {
+      this.service.getProductById(Number(productId)).subscribe({
+        next: async (res) => {
+          console.log(res);
+          this.product = res;
+          this.product.password = '';
+          this.isLoading = false;
+
+          // Swal.fire({
+          //   title: 'done!',
+          //   text: res.message,
+          //   icon: 'success',
+          // });
+        },
+        error: (err) => {
+          console.log(err);
+          Swal.fire({
+            title: 'حدث خطأ',
+            text: err.error.message,
+            icon: 'error',
+            confirmButtonText: 'حسناً',
+          });
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
+      });
     }
-    
-  
-    img1: string = '';
-    img2: string = '';
-  
- Onsubmit() {
-  // if (this.img1 != '') {
-  //   // Modify the element at index 0 (first element)
-  //   this.product.supplementaryPhotos[0] = this.img1;
-  // }
-  
-  // if (this.img2 != '') {
-  //   // Modify the element at index 1 (second element)
-  //   this.product.supplementaryPhotos[1] = this.img2;
-  // }
-
-  console.log(this.product);
-  this.service.EditProduct(this.product).subscribe((data: any) => {
-    console.log(data);
-    this.dialogRef.close();
-  });
- }
-
-
- 
- 
- base64Image: string = '';
-
- onFileSelected(event: any) {
-   const file = event.target.files[0];
-   if (file) {
-     const reader = new FileReader();
-     reader.onload = (e: any) => {
-       this.product.principalPhoto = e.target.result; // Set the Base64 string
-     };
-     reader.readAsDataURL(file); // Convert the file to Base64
-   }
- }
- onFileSelectedsecond(event: any) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      // this.img1=e.target.result;
-      this.product.supplementaryPhotos[0]=e.target.result
-      this.img1=e.target.result;
-    };
-    reader.readAsDataURL(file); // Convert the file to Base64
   }
-}
 
-onFileSelectedthird(event: any) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.product.supplementaryPhotos[1]=e.target.result
-      this.img2=e.target.result;
-    };
-    reader.readAsDataURL(file); // Convert the file to Base64
+  checkedRole(role: string) {
+    const index = this.product.roles.indexOf(role);
+
+    if (index > -1) {
+      return true;
+    } else {
+      return false;
+    }
   }
-}
 
+  updateRoles(role: string) {
+    const index = this.product.roles.indexOf(role);
 
+    if (index > -1) {
+      // Role exists → remove it
+      this.product.roles.splice(index, 1);
+    } else {
+      this.product.roles.push(role);
+    }
 
-  showInputsdata(){
+    console.log('Updated roles:', this.product.roles);
+  }
+  goBack() {
+    this.router.navigate(['/admin/products']);
+  }
+
+  onSubmit() {
+    this.isLoading = true;
+
+    console.log(this.product);
+    this.service.editProduct(this.product).subscribe({
+      next: async (res) => {
+        this.isLoading = false;
+
+  Swal.fire({
+  title: 'تم بنجاح!',
+  text: 'تم حفظ التغييرات.',
+  icon: 'success',
+  confirmButtonText: 'حسناً'
+});
+
+      },
+      error: (err) => {
+        console.log(err);
+        Swal.fire({
+          title: 'error!',
+          text: err.error.message,
+          icon: 'error',
+        });
+        this.isLoading = false;
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
+  }
+
+  showInputsdata() {
     console.log(this.product);
   }
-
-
 }
-

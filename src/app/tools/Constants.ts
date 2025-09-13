@@ -18,10 +18,19 @@ export class UpdateType {
 }
 
 export class URLS {
-  static serverPath = 'http://localhost:9091/api/';
-  static getAdminByUID = URLS.serverPath + '/getAdminByUID';
-  static updateAdminProfile = URLS.serverPath + '/updateAdminProfile';
-  static getAllRoles = URLS.serverPath + '/getAllRoles';
+  // static serverPath = 'http://127.0.0.1:8000/';
+  static serverPath = 'https://sevenadin-store-backend.onrender.com/';
+  
+
+  static getAdminByUID = URLS.serverPath + 'getAdminByUID';
+  static updateAdminProfile = URLS.serverPath + 'updateAdminProfile';
+  static getAllRoles = URLS.serverPath + 'getAllRoles';
+  static login = URLS.serverPath + 'login/';
+  static getUserInfoById = URLS.serverPath + 'getUserInfoById/';
+  static users = URLS.serverPath + 'api/users/';
+  static products = URLS.serverPath + 'api/products/';
+  
+   
 }
 
 export class RolesId {

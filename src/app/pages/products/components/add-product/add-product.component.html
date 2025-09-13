@@ -1,180 +1,119 @@
-<mat-card class="cardWithShadow theme-card">
-  <mat-card-header>
-    <mat-card-title class="m-b-0">Adding a new product</mat-card-title>
-  </mat-card-header>
+<html dir="rtl">
+  <mat-card class="cardWithShadow theme-card">
+    <mat-card-header>
+      <mat-card-title class="m-b-0">إضافة منتج جديد</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="b-t-1">
+      
+      <!-- Loading -->
+      <div *ngIf="isLoading" class="loading-con">
+        <loading></loading>
+      </div>
 
-  <!-- Scrollable content wrapper -->
-  <mat-card-content class="b-t-1 scrollable-content">
-    <form>
-      <div class="row">
-        <div class="col-lg-3">
-          <mat-label class="f-w-600 m-b-8 d-block">Name</mat-label>
-          <mat-form-field appearance="outline" class="w-100">
-            <input
-              matInput
-              placeholder="Your name"
-              [(ngModel)]="product.name"
-              name="name"
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-3">
-          <mat-label class="f-w-600 m-b-8 d-block">Description</mat-label>
-          <mat-form-field appearance="outline" class="w-100">
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="product.description"
-              name="description"
-              placeholder="Description"
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-3">
-          <mat-label class="f-w-600 m-b-8 d-block">Price</mat-label>
-          <mat-form-field appearance="outline" class="w-100">
-            <input
-              matInput
-              type="number"
-              [(ngModel)]="product.price"
-              name="price"
-              placeholder="Price"
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-3">
-          <mat-label class="f-w-600 m-b-8 d-block">Stock Quantity</mat-label>
-          <mat-form-field appearance="outline" class="w-100">
-            <input
-              matInput
-              type="number"
-              [(ngModel)]="product.stockQuantity"
-              name="quantity"
-              placeholder="Quantity"
-            />
-          </mat-form-field>
-        </div>
-
-        <div class="col-lg-3">
-          <mat-label class="f-w-600 m-b-8 d-block">Category</mat-label>
-          <mat-form-field appearance="outline" class="w-100">
-            <mat-select [(value)]="product.idCategory">
-              <mat-option [value]="">Select Category</mat-option>
-              @for(category of categories; track category.idCategory) {
-              <mat-option [value]="category.idCategory">{{
-                category.name
-              }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <!-- <div class="col-lg-3">
-           
-        </div> -->
-        <!-- <div class="col-lg-3">
+      <!-- Form -->
+      <div *ngIf="!isLoading">
+        <form>
+          <div class="row">
             
-        </div> -->
-        <!-- <div class="col-lg-3">
-            
-        </div> -->
+            <!-- Product Name -->
+            <div class="col-lg-6">
+              <mat-label class="f-w-600 m-b-8 d-block">اسم المنتج</mat-label>
+              <mat-form-field class="w-100">
+                <input
+                  matInput
+                  placeholder="اسم المنتج"
+                  [(ngModel)]="product.name"
+                  name="name"
+                />
+              </mat-form-field>
+            </div>
+
+            <!-- Description -->
+            <div class="col-lg-6">
+              <mat-label class="f-w-600 m-b-8 d-block">الوصف</mat-label>
+              <mat-form-field class="w-100">
+                <textarea
+                  matInput
+                  placeholder="وصف المنتج"
+                  [(ngModel)]="product.description"
+                  name="description"
+                  rows="2"
+                ></textarea>
+              </mat-form-field>
+            </div>
+
+            <!-- Purchase Price -->
+            <div class="col-lg-6">
+              <mat-label class="f-w-600 m-b-8 d-block">سعر الشراء</mat-label>
+              <mat-form-field class="w-100">
+                <input
+                  matInput
+                  type="number"
+                  [(ngModel)]="product.purchase_price"
+                  name="purchase_price"
+                  placeholder="0.00"
+                />
+              </mat-form-field>
+            </div>
+
+            <!-- Sale Price -->
+            <div class="col-lg-6">
+              <mat-label class="f-w-600 m-b-8 d-block">سعر البيع</mat-label>
+              <mat-form-field class="w-100">
+                <input
+                  matInput
+                  type="number"
+                  [(ngModel)]="product.sale_price"
+                  name="sale_price"
+                  placeholder="0.00"
+                />
+              </mat-form-field>
+            </div>
+
+            <!-- Stock Quantity -->
+            <div class="col-lg-6">
+              <mat-label class="f-w-600 m-b-8 d-block">الكمية</mat-label>
+              <mat-form-field class="w-100">
+                <input
+                  matInput
+                  type="number"
+                  [(ngModel)]="product.stock_quantity"
+                  name="stock_quantity"
+                  placeholder="0"
+                />
+              </mat-form-field>
+            </div>
+
+            <!-- Supplier -->
+            <!-- <div class="col-lg-6">
+              <mat-label class="f-w-600 m-b-8 d-block">المورد</mat-label>
+              <mat-form-field class="w-100">
+                <mat-select [(ngModel)]="product.supplier" name="supplier">
+                  <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">
+                    {{ supplier.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+
+          </div>
+        </form>
+
+        <!-- Actions -->
+        <div class="m-t-12">
+          <button
+            mat-stroked-button
+            (click)="onSubmit()"
+            color="primary"
+            class="m-r-8"
+          >
+            حفظ
+          </button>
+          <button (click)="goBack()" mat-stroked-button color="warn">
+            إلغاء
+          </button>
+        </div>
       </div>
-      <div class="row">
-        @if(product.principalPhoto && product.principalPhoto !== "") {
-        <div class="col-lg-4">
-          <img
-            [src]="product.principalPhoto"
-            class="product-image"
-            alt="Product Photo"
-          />
-          <label for="exampleFormControlFile1">the principal photo</label>
-          <input
-            class="form-control-file"
-            type="file"
-            (change)="onFileSelected($event)"
-          />
-        </div>
-        } @if( product.principalPhoto == null || product.principalPhoto == "") {
-        <div class="col-lg-4">
-          <img
-            src="https://i.pinimg.com/474x/67/52/c7/6752c7d13005b6e5800f0dd3b1290b45.jpg"
-            class="product-image"
-            alt="Product Photo"
-          />
-          <label for="exampleFormControlFile1">the principal photo</label>
-          <input
-            class="form-control-file"
-            type="file"
-            (change)="onFileSelected($event)"
-          />
-        </div>
-
-        } @if( img1 != "" && img1 != null) {
-        <div class="col-lg-4">
-          <img [src]="img1" class="product-image" alt="Product Photo" />
-          <label for="exampleFormControlFile1"> the secondary photo</label>
-          <input
-            class="form-control-file"
-            type="file"
-            (change)="onFileSelectedsecond($event)"
-          />
-        </div>
-        } @if( img1 == null|| img1=="") {
-        <div class="col-lg-4">
-          <img
-            src="https://i.pinimg.com/474x/67/52/c7/6752c7d13005b6e5800f0dd3b1290b45.jpg"
-            class="product-image"
-            alt="Product Photo"
-          />
-          <label for="exampleFormControlFile1"> the secondary photo</label>
-          <input
-            class="form-control-file"
-            type="file"
-            (change)="onFileSelectedsecond($event)"
-          />
-        </div>
-
-        } @if( img2 != "" && img2 != null) {
-        <div class="col-lg-4">
-          <img [src]="img2" class="product-image" alt="Product Photo" />
-          <label for="exampleFormControlFile1"> the third photo</label>
-          <input
-            class="form-control-file"
-            type="file"
-            (change)="onFileSelectedthird($event)"
-          />
-        </div>
-        } @if( img2 == null || img2 =="") {
-        <div class="col-lg-4">
-          <img
-            src="https://i.pinimg.com/474x/67/52/c7/6752c7d13005b6e5800f0dd3b1290b45.jpg"
-            class="product-image"
-            alt="Product Photo"
-          />
-          <label for="exampleFormControlFile1"> the third photo</label>
-          <input
-            class="form-control-file"
-            type="file"
-            (change)="onFileSelectedthird($event)"
-          />
-        </div>
-
-        }
-      </div>
-
-      <div class="m-t-12">
-        <button
-          mat-flat-button
-          color="primary"
-          (click)="Onsubmit()"
-          class="m-r-8"
-        >
-          Sub;;;;;;;;mit
-        </button>
-        <button mat-stroked-button color="warn">Cancel</button>
-      </div>
-    </form>
-  </mat-card-content>
-</mat-card>
+    </mat-card-content>
+  </mat-card>
+</html>

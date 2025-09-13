@@ -6,131 +6,89 @@ import { MaterialModule } from 'src/app/material.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { UsersServicesComponent } from 'src/app/services/UsersServices';
-import { usersData } from './type';
+import { UsersServicesComponent } from 'src/app/pages/users/UsersServices';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from './components/add-user/add-user.component';
-import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { Constants } from 'src/app/tools/Constants';
-
-
-const PRODUCT_DATA: any = 
-[
-    {
-    "id": 1,
-    "name": "محمد أحمد",
-    "email": "mohamed.ahmed@example.com",
-    "roles": ["admin", "مدير المنتجات"]
-  },
-  {
-    "id": 2,
-    "name": "فاطمة الزهراء",
-    "email": "fatima.zahra@example.com",
-    "roles": ["مدير المبيعات", "مدير المنتجات"]
-  },
-  {
-    "id": 3,
-    "name": "علي الحسن",
-    "email": "ali.hassan@example.com",
-    "roles": ["المحاسب"]
-  },
-  {
-    "id": 4,
-    "name": "خديجة محمد",
-    "email": "khadija.mohamed@example.com",
-    "roles": ["الموارد البشرية"]
-  },
-  {
-    "id": 5,
-    "name": "يوسف إبراهيم",
-    "email": "youssef.ibrahim@example.com",
-    "roles": ["الدعم الفني", "مدير المنتجات"]
-  }
-  ,
-  {
-    "id": 11,
-    "name": "محمد أحمد",
-    "email": "mohamed.ahmed@example.com",
-    "roles": ["admin", "مدير المنتجات"]
-  },
-  {
-    "id": 21,
-    "name": "فاطمة الزهراء",
-    "email": "fatima.zahra@example.com",
-    "roles": ["مدير المبيعات", "مدير المنتجات"]
-  },
-  {
-    "id": 31,
-    "name": "علي الحسن",
-    "email": "ali.hassan@example.com",
-    "roles": ["المحاسب"]
-  },
-  {
-    "id": 41,
-    "name": "خديجة محمد",
-    "email": "khadija.mohamed@example.com",
-    "roles": ["الموارد البشرية"]
-  },
-  {
-    "id": 51,
-    "name": "يوسف إبراهيم",
-    "email": "youssef.ibrahim@example.com",
-    "roles": ["الدعم الفني", "مدير المنتجات"]
-  }
-]
-;
-
-
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { LoadingComponent } from 'src/app/tools/loading/loading.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
   imports: [
     MatTableModule,
+    LoadingComponent,
     CommonModule,
     MatCardModule,
     MaterialModule,
     MatIconModule,
     MatMenuModule,
     MatButtonModule,
-    AddUserComponent
-  ],  templateUrl: './users.component.html',
-  styleUrl: './users.component.scss'
+    AddUserComponent,
+  ],
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.scss',
 })
-export class UsersComponent  implements OnInit{
-  constructor(private myService: UsersServicesComponent,private dialog: MatDialog) {}
+export class UsersComponent implements OnInit {
+  constructor(
+    private myService: UsersServicesComponent,
+    private router: Router
+  ) {}
+  isLoading=false
   users: any = [];
   ngOnInit(): void {
-    console.log("user info : ",Constants.admin)
+    this.isLoading=true
+    console.log('user info : ', Constants.admin);
 
-    // this.myService.getUserData().subscribe((data) => {
-    //   console.log(data);
-      
-    // });
-  this.users = PRODUCT_DATA;  
-  }
+    this.myService.getUserData().subscribe((data) => {
+      console.log('data is ', data);
 
-showAddUserDialog() {
-    const dialogRef = this.dialog.open(AddUserComponent);
-  
-    dialogRef.afterClosed().subscribe((result) => {
-    
+      // Ensure users is an array
+      if (Array.isArray(data)) {
+        this.users = data;
+      } else if (data && typeof data === 'object') {
+        this.users = Object.values(data); // Convert object to array
+      } else {
+        this.users = [];
+      }
+       this.isLoading=false
     });
   }
-  showEditUserDialog(user: any) {
-    const dialogRef = this.dialog.open(EditUserComponent,{data: user });
-  
+  goToAddPage() {
+    this.router.navigate(['admin/add-users']);
+  }
+  goToEditPage(id: number) {
+    this.router.navigate(['/admin/edit-users', id]);
   }
 
   deleteUser(id: number) {
-    this.myService.deteleClient(id).subscribe(() => {
-      this.users = this.users.filter((user: any) => user.id !== id);
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.myService.deteleUser(id).subscribe(() => {
+          this.users = this.users.filter((user: any) => user.id !== id);
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Your file has been deleted.',
+            icon: 'success',
+          });
+        });
+      }
     });
   }
 
-
   // users = PRODUCT_DATA;
-  trackByName(index: number, user: any): string {
-    return user.name; // Use a unique identifier like `user.id` or `user.name`
+  trackById(index: number, user: any): string {
+    return user.id; // Use a unique identifier like `user.id` or `user.name`
   }
 }

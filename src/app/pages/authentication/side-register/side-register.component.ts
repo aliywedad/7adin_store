@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../material.module';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../side-login/auth.service';
 
 @Component({
   selector: 'app-side-register',
@@ -18,21 +18,19 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './side-register.component.html',
 })
 export class AppSideRegisterComponent {
-  constructor(private router: Router,private service: AuthService) {}
- 
+  constructor(private router: Router, private service: AuthService) {}
 
-  
-  roles = [{ value: 'admin', viewValue: 'admin' }, { value: 'user', viewValue: 'user' }]
-
+  roles = [
+    { value: 'admin', viewValue: 'admin' },
+    { value: 'user', viewValue: 'user' },
+  ];
 
   user: any = {
-       
     username: '',
-    email: "",
-    status: "active",
-    password: "",
-    role: "user",
-  
+    email: '',
+    status: 'active',
+    password: '',
+    role: 'user',
   };
   submit() {
     // console.log(this.form.value);
@@ -41,9 +39,9 @@ export class AppSideRegisterComponent {
   onSubmit() {
     // this.router.navigate(['/']);
     console.log(this.user);
-    this.service.register(this.user).subscribe(res => {
+    this.service.register(this.user).subscribe((res: any) => {
       console.log(res);
       this.router.navigate(['/']);
-    })
+    });
   }
 }

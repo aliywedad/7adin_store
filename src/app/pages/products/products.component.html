@@ -2,46 +2,54 @@
   <mat-card class="cardWithShadow">
     <mat-card-content class="mat-card-content">
       <mat-card-title class="title">قائمة المنتجات</mat-card-title>
-
-      <div class="row mb-3">
+      
+      <!-- Search and Add -->
+      <div class="row">
         <div class="col-8">
           <input class="search" placeholder="ابحث عن منتج" />
         </div>
-        <div class="col-4 text-end">
-          <button class="search-btn">
+        <div class="col-4">
+          <button class="search-btn" (click)="goToAddPage()">
             إضافة منتج
           </button>
         </div>
       </div>
 
-      <div class="table-responsive">
+      <!-- Loader -->
+      <loading *ngIf="isLoading"></loading>
+
+      <!-- Products Table -->
+      <div *ngIf="!isLoading" class="table-responsive">
         <table class="table table-hover">
           <!-- Table Head -->
           <thead>
             <tr>
-              <th scope="col">الاسم</th>
-              <!-- <th scope="col">الوصف</th> -->
-              <th scope="col">السعر</th>
-              <!-- <th scope="col">التصنيف</th> -->
-              <th scope="col"> المخزون</th>
-              <th class="text-nowrap" scope="col">تاريخ الإنشاء</th>
-              <th scope="col" class="text-center">إجراءات</th>
+              <th scope="col">اسم المنتج</th>
+              <th scope="col">الوصف</th>
+              <th scope="col">سعر الشراء</th>
+              <th scope="col">سعر البيع</th>
+              <th scope="col">الكمية</th>
+              <!-- <th scope="col">المورد</th> -->
+              <th scope="col">تاريخ الإنشاء</th>
+              <th scope="col" class="text-center">الإجراءات</th>
             </tr>
           </thead>
 
           <!-- Table Body -->
           <tbody>
             <tr *ngFor="let product of products; trackBy: trackById" class="align-middle">
-              <!-- ID Column -->
- 
-              <td>{{ product.name }}</td>
-              <!-- <td>{{ product.description }}</td> -->
-              <td>{{ product.price }} MRU</td>
-              <!-- <td>{{ product.nameCategory }}</td> -->
-              <td>{{ product.stockQuantity }}</td>
-              <td>{{ product.created_at | date: 'shortDate' }}</td>
+              <td class="nowrap">{{ product.name }}</td>
+              <td class="nowrap">{{ product.description }}</td>
+              <td>{{ product.purchase_price | number:'1.0-2' }} MRU</td>
+              <td>{{ product.sale_price | number:'1.0-2' }} MRU</td>
+              <td>{{ product.stock_quantity }}</td>
+              <!-- <td>{{ product.supplier?.name || '---' }}</td> -->
+              <td>
+                               <html dir="ltr">{{ product.created_at | date:'yyyy-MM-dd HH:mm' }}</html>
 
-              <!-- Actions Column with Menu -->
+              </td>
+
+              <!-- Actions Column -->
               <td class="text-center">
                 <button
                   mat-icon-button
@@ -52,17 +60,21 @@
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="OpenAddProductDilog()">
+                  <button mat-menu-item (click)="goToAddPage()">
                     <mat-icon>add</mat-icon>
                     <span>إضافة</span>
                   </button>
-                  <button mat-menu-item (click)="OpenEditProductDilog(product)">
+                  <button mat-menu-item (click)="goToEditPage(product.id)">
                     <mat-icon>edit</mat-icon>
                     <span>تعديل</span>
                   </button>
-                  <button mat-menu-item (click)="deleteProduct(product.idProduct)">
+                  <button mat-menu-item (click)="deleteProduct(product.id)">
                     <mat-icon>delete</mat-icon>
                     <span>حذف</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>visibility</mat-icon>
+                    <span>عرض التفاصيل</span>
                   </button>
                 </mat-menu>
               </td>

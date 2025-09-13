@@ -1,0 +1,63 @@
+<html dir="rtl" lang="ar">
+  <div
+    class="blank-layout-container justify-content-center align-items-center bg-light"
+  >
+    <div
+      class="position-relative row w-100 h-100 bg-gredient justify-content-center"
+    >
+      <div class="col-lg-4 d-flex align-items-center p-4">
+        <mat-card class="cardWithShadow boxed-auth">
+          <mat-card-content>
+            <div class="text-center">
+              <h2 class="f-w-600 m-b-20">تسجيل الدخول</h2>
+            </div>
+
+            <form [formGroup]="form" class="m-t-30">
+              <!-- اسم المستخدم (بريد أو هاتف) -->
+              <label
+                class="mat-subtitle-2 w-100 f-s-14 f-w-600 m-b-12 d-block"
+              >
+                البريد الإلكتروني أو رقم الهاتف
+              </label>
+              <input formControlName="username" placeholder="أدخل البريد أو الهاتف" />
+
+              <!-- كلمة المرور -->
+              <label
+                class="mat-subtitle-2 w-100 f-s-14 f-w-600 m-b-12 d-block"
+              >
+                كلمة المرور
+              </label>
+              <input
+                type="password"
+                formControlName="password"
+                placeholder="أدخل كلمة المرور"
+              />
+
+              <!-- زر الدخول -->
+              <button
+                (click)="onSubmit()"
+                mat-flat-button
+                color="primary"
+                class="w-100"
+                [disabled]="!form.valid"
+              >
+                دخول
+              </button>
+            </form>
+
+            <!-- رابط استعادة كلمة المرور -->
+            <span class="d-block f-w-500 text-center m-t-24">
+              نسيت كلمة المرور؟
+              <a
+                [routerLink]="['/register']"
+                class="text-decoration-none text-primary f-w-500 f-s-14"
+              >
+                استعادة
+              </a>
+            </span>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</html>

@@ -11,9 +11,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { TablerIconsModule } from 'angular-tabler-icons';
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from 'src/app/components/footer/footer.component';
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -31,9 +29,8 @@ const BELOWMONITOR = 'screen and (max-width: 1023px)';
     CommonModule,
     SidebarComponent,
     NgScrollbarModule,
-    TablerIconsModule,
     HeaderComponent,
-    FooterComponent
+    
   ],
   templateUrl: './full.component.html',
   styleUrls: ['./full.component.scss'],

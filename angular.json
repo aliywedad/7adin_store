@@ -20,7 +20,8 @@
             "allowedCommonJsDependencies": [
               "apexcharts",
               "bezier-easing",
-              "moment"
+              "moment",
+              "sweetalert2"
             ],
             "outputPath": "dist/flexy",
             "index": "src/index.html",

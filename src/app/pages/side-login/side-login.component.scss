@@ -1,0 +1,28 @@
+*{
+  padding: 0px;
+  margin: 0px;
+
+}
+
+input{
+  border-radius: 10px;
+  border: 1px solid black;
+  width: 100%;
+  padding: 9px;
+}
+button{
+  margin-top: 10px;
+}
+body{
+  width: 300px;
+  height: 400px;
+  overflow: hidden;
+}
+ @media (max-width:600px) {
+
+   .container{
+  background-color: red;
+  width: 90vw;
+  height: 100vh;
+ }
+ }

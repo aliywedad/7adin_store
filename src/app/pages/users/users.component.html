@@ -7,38 +7,40 @@
             <input class="search" placeholder="ابحث عن مستخدم" />
         </div>
         <div class="col-4">
-          <button class="search-btn"  (click)="showAddUserDialog()">
+          <button class="search-btn"  (click)="goToAddPage()">
               إضافة مستخدم
           </button>
         </div>
       </div>
-
-      <div class="table-responsive">
+     <loading *ngIf="isLoading"></loading>
+      <div *ngIf="!isLoading" class="table-responsive">
         <table class="table table-hover">
           <!-- Table Head -->
           <thead>
             <tr>
-              <th  scope="col">#</th>
-              <th  scope="col">الاسم</th>
+                <th  scope="col">الاسم</th>
+                <th  scope="col">رقم الهاتف</th>
               <th  scope="col">البريد الإلكتروني</th>
               <th  scope="col">الأدوار</th>
-              <th  scope="col">الحالة</th>
               <th  scope="col" class="text-center">الإجراءات</th>
             </tr>
           </thead>
 
           <!-- Table Body -->
           <tbody>
-            <tr *ngFor="let user of users; trackBy: trackByName" class="align-middle">
-              <th class="text-center">{{ user.id }}</th>
+            
+            <tr *ngFor="let user of users; trackBy: trackById" class="align-middle">
               <td class="nowrap"  >{{ user.name }}</td>
+              <td class="nowrap"  >{{ user.phone }}</td>
               <td>{{ user.email }}</td>
               <td>
-                <span class="role" *ngFor="let role of user.roles; let last = last">
-                   {{ role }}
+                <div class="role-grid">
+          <span class="ro le" *ngFor="let role of user.roles; let last = last">
+                   {{ role }} 
                 </span>
+                </div>
+      
               </td>
-              <td>{{ user.status || 'نشط' }}</td>
 
               <!-- Actions Column -->
               <td class="text-center">
@@ -51,17 +53,21 @@
                   <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item>
+                  <button mat-menu-item (click)="goToAddPage()">
                     <mat-icon>add</mat-icon>
                     <span>إضافة</span>
                   </button>
-                  <button mat-menu-item (click)="showEditUserDialog(user)">
+                  <button mat-menu-item (click)="goToEditPage(user.id)">
                     <mat-icon>edit</mat-icon>
                     <span>تعديل</span>
                   </button>
                   <button mat-menu-item (click)="deleteUser(user.id)">
                     <mat-icon>delete</mat-icon>
                     <span>حذف</span>
+                  </button>
+                  <button mat-menu-item  >
+                    <mat-icon>lock</mat-icon>
+                    <span>block </span>
                   </button>
                 </mat-menu>
               </td>

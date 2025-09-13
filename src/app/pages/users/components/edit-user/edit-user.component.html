@@ -1,60 +1,125 @@
-<mat-card class="cardWithShadow theme-card">
+<html dir="rtl">
+  <mat-card class="cardWithShadow theme-card">
     <mat-card-header>
-      <mat-card-title class="m-b-0">Adding a new product</mat-card-title>
+      <mat-card-title class="m-b-0">إضافة مستخدم جديد</mat-card-title>
     </mat-card-header>
     <mat-card-content class="b-t-1">
-      <form>
+      <div *ngIf="isLoading" class="loading-con">
+        <loading ></loading>
+      </div>
+      <div *ngIf="!isLoading">
+      <form  >
         <div class="row">
           <div class="col-lg-6">
             <!-- input -->
-            <mat-label class="f-w-600 m-b-8 d-block">Name</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput placeholder="your name " [(ngModel)]="user.name" name="name"   />
+            <mat-label class="f-w-600 m-b-8 d-block">الاسم</mat-label>
+            <mat-form-field class="w-100">
+              <input
+                matInput
+                placeholder="اسم المستخدم"
+                [(ngModel)]="user.name"
+                name="name"
+              />
             </mat-form-field>
           </div>
+
           <div class="col-lg-6">
-                        <!-- input -->
-            <mat-label class="f-w-600 m-b-8 d-block">Email</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-            <input matInput type="email" [(ngModel)]="user.email" name="Email"   placeholder="description" />
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block">رقم الهاتف</mat-label>
+
+            <mat-form-field class="w-100">
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="user.phone"
+                max="8"
+                maxlength="8"
+                name="phone"
+                placeholder="رقم الهاتف"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <!-- input -->
+            <mat-label class="f-w-600 m-b-8 d-block"
+              >البريد الإلكتروني</mat-label
+            >
+            <mat-form-field class="w-100">
+              <input
+                matInput
+                type="email"
+                [(ngModel)]="user.email"
+                name="email"
+                placeholder="البريد الإلكتروني"
+              />
             </mat-form-field>
           </div>
           <div class="col-lg-6">
             <!-- input -->
-            <mat-label class="f-w-600 m-b-8 d-block">Role</mat-label>
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-select [(value)]="user.role">
-                <mat-option [value]=" " aria-disabled="true"> select role </mat-option>
-                @for(role of roles; track role.value) {
-                <mat-option [value]="role.value">{{
-                  role.viewValue
-                }}</mat-option>
-                }
-              </mat-select>
+            <mat-label class="f-w-600 m-b-8 d-block">كلمة المرور</mat-label>
+            <mat-form-field class="w-100">
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="user.password"
+                name="password"
+                placeholder="كلمة المرور"
+              />
             </mat-form-field>
           </div>
-          <div class="col-lg-6">
-             
-            <mat-label class="f-w-600 m-b-8 d-block">Status</mat-label>
-            <mat-form-field appearance="outline" aria-placeholder="user.status" class="w-100">
-              <mat-select [(value)]="user.status" >
-                <mat-option [value]=" " aria-disabled="true"> select status </mat-option>
-                @for(status of statuses; track status.value) {
-                <mat-option [value]="status.value">{{
-                    status.viewValue
-                }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
+          <span>الصلاحيات</span>
+          <div class="role-grid">
+            <div class="role-con">
+              <input
+                class="role-check"
+                id="role1"
+                type="checkbox"
+                [checked]="user.roles?.includes('users')"
+                (change)="updateRoles('users')"
+              />
+              <label for="role1">إدارة المستخدمين</label>
+            </div>
+
+            <div class="role-con">
+              <input
+                class="role-check"
+                id="role2"
+                type="checkbox"
+                [checked]="user.roles?.includes('products')"
+                (change)="updateRoles('products')"
+              />
+              <label for="role2">إدارة المنتجات</label>
+            </div>
+
+            <div class="role-con">
+              <input
+                class="role-check"
+                id="role3"
+                type="checkbox"
+                [checked]="user.roles?.includes('sales')"
+                (change)="updateRoles('sales')"
+              />
+              <label for="role3">إدارة المبيعات</label>
+            </div>
           </div>
-          
-        </div>
-  
-        <div class="m-t-12">
-          <button mat-flat-button color="primary" (click)="Onsubmit()" class="m-r-8">Submit</button>
-          <button mat-stroked-button color="warn">Cancel</button>
         </div>
       </form>
+      </div>
+
+      <div class="m-t-12">
+        <button
+          mat-stroked-button
+          (click)="onSubmit()"
+          color="primary"
+          class="m-r-8"
+        >
+          حفظ
+        </button>
+        <button (click)="goBack()" mat-stroked-button color="warn">
+          إلغاء
+        </button>
+      </div>
     </mat-card-content>
   </mat-card>
-  
+</html>
